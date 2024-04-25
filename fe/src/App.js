@@ -14,7 +14,8 @@ import {
   Route,
 } from "react-router-dom";
 import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
+import Checkout from './pages/Checkout/Checkout';
+import PayPal from './pages/Checkout/Paypal';
 import Compare from './components/Compare';
 import Policy from './pages/Policy';
 import Complete from './pages/Complete';
@@ -39,7 +40,7 @@ function App() {
           <Route path="/compare" element={<Compare />} />
           <Route path="/policy" element={<Policy />} />
           <Route path="/complete" element={<Complete />} />
-
+          <Route path="/checkout/paypal" element={<PayPal />} />
         </Routes>
       </Router>
     </div>

@@ -1,11 +1,11 @@
 import "../css/cartscreen.css";
 // import axios from "axios";
 import { useState } from "react";
-import {Navigate} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const CartScreen = () => {
-
+  const navigate = useNavigate();
   const [cart, setCart] = useState(
     localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
   );
@@ -26,42 +26,40 @@ const CartScreen = () => {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
     window.dispatchEvent(new Event("storage"));
-
   };
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'VND',
-
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "VND",
   });
-  const toNum=(str)=>{
-    return Number(str.split(' ')[0].replace(/\./g,''))
-   }
-  let sum=0;
+  const toNum = (str) => {
+    return Number(str.split(" ")[0].replace(/\./g, ""));
+  };
+  let sum = 0;
 
-cart.forEach(x=>{
-sum+=toNum(x.product.priceOn)*x.num
-})
+  cart.forEach((x) => {
+    sum += toNum(x.product.priceOn) * x.num;
+  });
 
-// const handlePay = async (e) => {
-//   e.preventDefault();
-//   try {
-    
-//     const payment = await axios.post("http://localhost:8000/user/payment", {
-//       amount: sum,
-//       orderId: `DONHANG${Math.floor(Math.random() * 100000)}`,
-//       orderInfo: "DON HANG BKROBOTIC",
-//     });
+  // const handlePay = async (e) => {
+  //   e.preventDefault();
+  //   try {
 
-//     if (payment.data.code === 200) {
-//       console.log(payment.data.data);
-//       window.location.replace(payment.data.data);
-//     }
-//   } catch (error) {
-//     console.log("Xay ra loi");
-//     console.log(error);
-//   }
-// };
+  //     const payment = await axios.post("http://localhost:8000/user/payment", {
+  //       amount: sum,
+  //       orderId: `DONHANG${Math.floor(Math.random() * 100000)}`,
+  //       orderInfo: "DON HANG BKROBOTIC",
+  //     });
+
+  //     if (payment.data.code === 200) {
+  //       console.log(payment.data.data);
+  //       window.location.replace(payment.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.log("Xay ra loi");
+  //     console.log(error);
+  //   }
+  // };
   return (
     <div className="cart">
       <div className="table-container">
@@ -74,34 +72,31 @@ sum+=toNum(x.product.priceOn)*x.num
               <th scope="col">Đơn Giá</th>
               <th scope="col">Số lượng</th>
               <th scope="col">Tùy chỉnh</th>
-
             </tr>
           </thead>
 
           <tbody>
             {cart.map((item, index) => {
               return (
-                <tr key={index} className={index%2?"RowEven":"RowOdd"}>
+                <tr key={index} className={index % 2 ? "RowEven" : "RowOdd"}>
                   <th scope="row">{index + 1}</th>
                   <td>
-                  <img
-                className="cart-img"
-                src={item.product.image}
-                alt={item.product.label}
-              />
+                    <img
+                      className="cart-img"
+                      src={item.product.image}
+                      alt={item.product.label}
+                    />
                   </td>
-                  <td>
-                    {item.product.name}</td>
+                  <td>{item.product.name}</td>
                   <td>{item.product.priceOn}</td>
                   <td>{item.num}</td>
                   <td>
-
                     <button
-              className="cart-row-remove"
-              onClick={() => handleRemove(item)}
-            >
-              <img src={require("../img/delete.png")} alt=""></img>
-            </button>
+                      className="cart-row-remove"
+                      onClick={() => handleRemove(item)}
+                    >
+                      <img src={require("../img/delete.png")} alt=""></img>
+                    </button>
                   </td>
                 </tr>
               );
@@ -109,17 +104,18 @@ sum+=toNum(x.product.priceOn)*x.num
           </tbody>
         </table>
         <h5>Tổng tiền:{formatter.format(sum)}</h5>
-
       </div>
 
       <div className="checkout">
-        <a href="/checkout">
-          <Button variant="primary" onClick={
-// handlePay
-             ()=><Navigate to='/checkout' />
-
-          }>Thanh toán</Button>{" "}
-        </a>
+        <Button
+          variant="primary"
+          onClick={
+            // handlePay
+            () => navigate("/checkout")
+          }
+        >
+          Thanh toán
+        </Button>{" "}
       </div>
     </div>
   );

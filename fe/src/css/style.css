@@ -11,6 +11,7 @@ body {
   /* width: 100%; */
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .ionicon{
@@ -22,6 +23,7 @@ body {
   width: 200px;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .header-logo-img {
@@ -30,12 +32,15 @@ body {
 .header-logo-text {
   font-size: 20px;
   font-weight: 900;
+  width: max-content;
 }
 
 .header-slider {
+  margin: 0 auto;
   padding: 10px 2px;
   display: inline-block;
   list-style-type: none;
+  width: 100%;
 }
 
 .header-slider-item {
@@ -45,7 +50,7 @@ body {
   padding: 10px 20px;
   align-content: center;
   display: inline-block;
-  width: 150px;
+  width: calc(100% / 6);
   text-align: center;
 }
 
